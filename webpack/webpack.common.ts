@@ -48,7 +48,7 @@ const fileRules: RuleSetRule[] = [
 ];
 
 const config: Configuration = {
-    entry: ['./src/index.tsx', './src/scss/index.scss'],
+    entry: ['./src/index.tsx', './src/styles/index.scss'],
     module: {
         rules: [
             ...tsRules,
