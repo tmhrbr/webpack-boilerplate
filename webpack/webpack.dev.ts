@@ -1,5 +1,6 @@
 import {HotModuleReplacementPlugin, Configuration, DefinePlugin} from 'webpack';
 import merge from 'webpack-merge';
+
 import CommonConfig from './webpack.common';
 
 const config: Configuration = {

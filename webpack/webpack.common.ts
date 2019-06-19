@@ -1,9 +1,9 @@
 import {resolve} from 'path';
-import {Configuration} from 'webpack';
+import {Configuration, RuleSetRule} from 'webpack';
 import {CleanWebpackPlugin} from 'clean-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
-const tsRules = [
+const tsRules: RuleSetRule[] = [
     {
         test: /\.tsx?$/,
         use: 'awesome-typescript-loader',
@@ -11,17 +11,34 @@ const tsRules = [
     }
 ];
 
-const cssRules = [
+const styleRules: RuleSetRule[] = [
     {
-        test: /\.css$/,
+        test: /\.module\.s[ca]ss$/,
         use: [
             'style-loader',
-            'css-loader'
+            {
+                loader: 'css-loader',
+                options: {
+                    modules: true,
+                    localIdentName: '[name]__[local]___[hash:base64:5]',
+                    camelCase: true,
+                }
+            },
+            'sass-loader',
+        ]
+    },
+    {
+        test: /\.s[ca]ss$/,
+        exclude: /\.module.(s[ca]ss)$/,
+        use: [
+            'style-loader',
+            'css-loader',
+            'sass-loader',
         ]
     }
 ];
 
-const fileRules = [
+const fileRules: RuleSetRule[] = [
     {
         test: /\.(png|svg|jpg|gif)$/,
         use: [
@@ -31,11 +48,11 @@ const fileRules = [
 ];
 
 const config: Configuration = {
-    entry: './src/index.tsx',
+    entry: ['./src/index.tsx', './src/scss/index.scss'],
     module: {
         rules: [
             ...tsRules,
-            ...cssRules,
+            ...styleRules,
             ...fileRules,
         ]
     },
