@@ -1,2 +1,2 @@
 # webpack-boilerplate
-A Webpack boilerplate with react
+A Webpack boilerplate based on TypeScript with React
